@@ -11,7 +11,7 @@ A library of functions computing the spherical harmonics expansion of the gravit
 2. `make`
 3. `make install`
 
-An example program is provided 
+<!-- An example program is provided  -->
 
 ## Credits
 
