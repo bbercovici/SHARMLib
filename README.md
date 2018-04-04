@@ -2,7 +2,7 @@
 
 A library of functions computing the spherical harmonics expansion of the gravity acceleration caused by a constant density polyhedron.
 
-OpenMP complier compilers enable faster performance.
+<!-- OpenMP complier compilers enable faster performance. -->
 
 ## Usage
 
