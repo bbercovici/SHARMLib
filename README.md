@@ -13,7 +13,15 @@ A library of functions computing the spherical harmonics expansion of the gravit
 
 <!-- An example program is provided  -->
 
+## Getting updates
+Assuming you have cloned this repository and did not apply any local changes to the library, cd to the corresponding folder
+and type
+1. `git pull origin master`
+2. `make`
+3. `make install`
+
+
 ## Credits
 
-* Originally created by Yu Takahasi and Siamak Hesar
+* Originally created by Yu Takahasi
 * Adapted by Benjamin Bercovici on 04/3/2018
