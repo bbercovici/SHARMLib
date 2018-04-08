@@ -23,5 +23,5 @@ and type
 
 ## Credits
 
-* Originally created by Yu Takahasi
+* Originally created by Yu Takahashi
 * Adapted by Benjamin Bercovici on 04/3/2018
