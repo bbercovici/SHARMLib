@@ -23,5 +23,10 @@ and type
 
 ## Credits
 
-* Originally created by Yu Takahashi
-* Adapted by Benjamin Bercovici on 04/3/2018
+* Copyright to Yu Takahashi
+* Adapted by Benjamin Bercovici
+
+
+## License
+
+[This software is distributed under the MIT License](https://choosealicense.com/licenses/mit/)
