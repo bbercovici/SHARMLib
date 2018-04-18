@@ -69,18 +69,18 @@ if (${IS_FORTUNA})
 else()
 	if(APPLE)
 		if(EXISTS ${OMP_FRIENDLY_GCC_PATH}) # Else running on a MAC. Will attempt to switch compiler to get the OMP-friendly GCC 6.3.0_1 from Homebrew
-			message("Switching to OMP-friendly GCC ")
-	    	set(CMAKE_C_COMPILER ${OMP_FRIENDLY_GCC_PATH}gcc-${OMP_FRIENDLY_GCC_MAJOR_VERSION} CACHE STRING "C Compiler" FORCE)
-			set(CMAKE_CXX_COMPILER ${OMP_FRIENDLY_GCC_PATH}g++-${OMP_FRIENDLY_GCC_MAJOR_VERSION} CACHE STRING "C++ Compiler" FORCE)
+		message("Switching to OMP-friendly GCC ")
+		set(CMAKE_C_COMPILER ${OMP_FRIENDLY_GCC_PATH}gcc-${OMP_FRIENDLY_GCC_MAJOR_VERSION} CACHE STRING "C Compiler" FORCE)
+		set(CMAKE_CXX_COMPILER ${OMP_FRIENDLY_GCC_PATH}g++-${OMP_FRIENDLY_GCC_MAJOR_VERSION} CACHE STRING "C++ Compiler" FORCE)
 
 		else()# no OMP-compliant compiler was found on this mac. 
-			message(FATAL_ERROR "No OMP-compliant compiler was found on this Mac.")
-		endif()
-	else() # Running on Linux. Will switch back to compiler in /usr/local/bin
-				message("Switching to /usr/local/gcc ")
-		    	set(CMAKE_C_COMPILER "/usr/local/bin/gcc" CACHE STRING "C Compiler" FORCE)
-				set(CMAKE_CXX_COMPILER "/usr/local/bin/g++" CACHE STRING "C++ Compiler" FORCE)
+		message(FATAL_ERROR "No OMP-compliant compiler was found on this Mac.")
 	endif()
+	else() # Running on Linux. Will switch back to compiler in /usr/local/bin
+	message("Switching to /usr/local/gcc ")
+	set(CMAKE_C_COMPILER "/usr/local/bin/gcc" CACHE STRING "C Compiler" FORCE)
+	set(CMAKE_CXX_COMPILER "/usr/local/bin/g++" CACHE STRING "C++ Compiler" FORCE)
+endif()
 endif()
 
 project(${LIB_NAME})
@@ -114,21 +114,24 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${OpenMP_CXX_FLAGS}")
 
 # Add source files in root directory
 add_library(${LIB_NAME} 
-SHARED
-source/SHARMLib.cpp
-)
+	SHARED
+	source/SHARMLib.cpp
+	)
 
 target_link_libraries(${LIB_NAME} ${ARMADILLO_LIBRARIES})
 
-# Installing
-if (NOT ${IS_FORTUNA})
-	install (TARGETS ${LIB_NAME} DESTINATION /usr/local/lib/)
-	install (FILES ${PROJECT_SOURCE_DIR}/SHARMLibConfig.cmake DESTINATION /usr/local/lib/cmake/)
-	install (DIRECTORY ${PROJECT_SOURCE_DIR}/include/ DESTINATION /usr/local/include/ FILES_MATCHING PATTERN "*.hpp")
-else()
-	install (TARGETS ${LIB_NAME} DESTINATION /home/bebe0705/libs/local/lib)
-	install (FILES ${PROJECT_SOURCE_DIR}/SHARMLibConfig.cmake DESTINATION /home/bebe0705/libs/local/lib/cmake/)
-	install (DIRECTORY ${PROJECT_SOURCE_DIR}/include/ DESTINATION /home/bebe0705/libs/local/include/ FILES_MATCHING PATTERN "*.hpp")
+# If ${BREW} is true, installing from homebrew formula
+if(NOT BREW)
+
+	if (NOT ${IS_FORTUNA})
+		install (TARGETS ${LIB_NAME} DESTINATION /usr/local/lib/)
+		install (FILES ${PROJECT_SOURCE_DIR}/SHARMLibConfig.cmake DESTINATION /usr/local/lib/cmake/)
+		install (FILES ${PROJECT_SOURCE_DIR}/include/SHARMLib.hpp DESTINATION /usr/local/include/)
+	else()
+		install (TARGETS ${LIB_NAME} DESTINATION /home/bebe0705/libs/local/lib)
+		install (FILES ${PROJECT_SOURCE_DIR}/SHARMLibConfig.cmake DESTINATION /home/bebe0705/libs/local/lib/cmake/)
+		install (FILES ${PROJECT_SOURCE_DIR}/include/SHARMLib.hpp DESTINATION /home/bebe0705/libs/local/include/)
+	endif()
 endif()
 
 
