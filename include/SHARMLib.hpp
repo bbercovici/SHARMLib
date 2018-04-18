@@ -46,48 +46,50 @@ coefficients about a polyhedral shape model.
 
 #define Index(i,j,k,n) ( ((n)-(i)) * ((n)-(i)+1) / 2 + (k) )
 
+namespace SHARMLib {
+
 /**
 structure to store trinomial coefficients
 **/
-typedef struct {
-    int degree;
+    typedef struct {
+        int degree;
     double data [DIM_MAX]; /* worst-case dimension */
-} Trinomial;
+    } Trinomial;
 
 
-void    CalculateBasicTables (int n_degree,
-                              double (&mixingFactors) [NM_DIM_MAX + 1] [NM_DIM_MAX + 1] [NM_DIM_MAX + 1],
-                              int (&trinomialCoefficientCount)[NM_DIM_MAX + 1]);
-void    CalculateFullyNormalizedTables (int n_degree,
-                                        double (&diagonalFactors) [NM_DIM_MAX + 1],
-                                        double (&subdiagonalFactors) [NM_DIM_MAX + 1],
-                                        double (&vertical1Factors) [NM_DIM_MAX + 1] [NM_DIM_MAX + 1],
-                                        double (&vertical2Factors) [NM_DIM_MAX + 1] [NM_DIM_MAX + 1]);
-void    CalculateUnnormalizedTables (int n_degree,
-                                     double (&diagonalFactors) [NM_DIM_MAX + 1],
-                                     double (&subdiagonalFactors) [NM_DIM_MAX + 1],
-                                     double (&vertical1Factors) [NM_DIM_MAX + 1] [NM_DIM_MAX + 1],
-                                     double (&vertical2Factors) [NM_DIM_MAX + 1] [NM_DIM_MAX + 1]);
+    void    CalculateBasicTables (int n_degree,
+      double (&mixingFactors) [NM_DIM_MAX + 1] [NM_DIM_MAX + 1] [NM_DIM_MAX + 1],
+      int (&trinomialCoefficientCount)[NM_DIM_MAX + 1]);
+    void    CalculateFullyNormalizedTables (int n_degree,
+        double (&diagonalFactors) [NM_DIM_MAX + 1],
+        double (&subdiagonalFactors) [NM_DIM_MAX + 1],
+        double (&vertical1Factors) [NM_DIM_MAX + 1] [NM_DIM_MAX + 1],
+        double (&vertical2Factors) [NM_DIM_MAX + 1] [NM_DIM_MAX + 1]);
+    void    CalculateUnnormalizedTables (int n_degree,
+       double (&diagonalFactors) [NM_DIM_MAX + 1],
+       double (&subdiagonalFactors) [NM_DIM_MAX + 1],
+       double (&vertical1Factors) [NM_DIM_MAX + 1] [NM_DIM_MAX + 1],
+       double (&vertical2Factors) [NM_DIM_MAX + 1] [NM_DIM_MAX + 1]);
 
-double  IntegrateOneSimplex (const Trinomial *tri,
-                             double (&mixingFactors) [NM_DIM_MAX + 1] [NM_DIM_MAX + 1] [NM_DIM_MAX + 1]);
-void    TriAdd  (Trinomial * const result,
-                 const Trinomial * const left,
-                 const Trinomial * const right,
-                 int (&trinomialCoefficientCount)[NM_DIM_MAX + 1]);
-void    TriCopy (Trinomial * const target, const Trinomial * const source,
-                 int (&trinomialCoefficientCount) [NM_DIM_MAX + 1]);
+    double  IntegrateOneSimplex (const Trinomial *tri,
+       double (&mixingFactors) [NM_DIM_MAX + 1] [NM_DIM_MAX + 1] [NM_DIM_MAX + 1]);
+    void    TriAdd  (Trinomial * const result,
+       const Trinomial * const left,
+       const Trinomial * const right,
+       int (&trinomialCoefficientCount)[NM_DIM_MAX + 1]);
+    void    TriCopy (Trinomial * const target, const Trinomial * const source,
+       int (&trinomialCoefficientCount) [NM_DIM_MAX + 1]);
 
-void    TriMult (Trinomial * const result, const Trinomial * const left,
-                 const Trinomial * const right,
-                 int (&trinomialCoefficientCount) [NM_DIM_MAX + 1]);
+    void    TriMult (Trinomial * const result, const Trinomial * const left,
+       const Trinomial * const right,
+       int (&trinomialCoefficientCount) [NM_DIM_MAX + 1]);
 
-void    TriMultScalar (Trinomial * const result, const double scalar,
-                       int (&trinomialCoefficientCount) [NM_DIM_MAX + 1]);
-void    TriPrint (const Trinomial * const tri, const char * words);
-void    TriSub  (Trinomial * const result, const Trinomial * const left,
-                 const Trinomial * const right,
-                 int (&trinomialCoefficientCount) [NM_DIM_MAX + 1]);
+    void    TriMultScalar (Trinomial * const result, const double scalar,
+     int (&trinomialCoefficientCount) [NM_DIM_MAX + 1]);
+    void    TriPrint (const Trinomial * const tri, const char * words);
+    void    TriSub  (Trinomial * const result, const Trinomial * const left,
+       const Trinomial * const right,
+       int (&trinomialCoefficientCount) [NM_DIM_MAX + 1]);
 
 
 
@@ -116,23 +118,23 @@ Accumulate contribution of one simplex to potential coefficients Cnm and Snm.
 @param polygon_mass mass of supporting tetrahedron 
 @param ref_radius reference radius in the expansion
 */
-void AccumulateOneSimplex (
-    int n_degree,
-    double Cnm [NM_DIM_MAX + 1] [NM_DIM_MAX + 1],
-    double Snm [NM_DIM_MAX + 1] [NM_DIM_MAX + 1],
-    double x0, double y0, double z0,
-    double x1, double y1, double z1,
-    double x2, double y2, double z2,
-    int (&trinomialCoefficientCount) [NM_DIM_MAX + 1],
-    double (&diagonalFactors) [NM_DIM_MAX + 1],
-    double (&subdiagonalFactors) [NM_DIM_MAX + 1],
-    double (&vertical1Factors) [NM_DIM_MAX + 1] [NM_DIM_MAX + 1],
-    double (&vertical2Factors) [NM_DIM_MAX + 1] [NM_DIM_MAX + 1],
-    double (&mixingFactors) [NM_DIM_MAX + 1] [NM_DIM_MAX + 1] [NM_DIM_MAX + 1],
-    double density,
-    double polygon_mass,
-    double ref_radius
-);
+    void AccumulateOneSimplex (
+        int n_degree,
+        double Cnm [NM_DIM_MAX + 1] [NM_DIM_MAX + 1],
+        double Snm [NM_DIM_MAX + 1] [NM_DIM_MAX + 1],
+        double x0, double y0, double z0,
+        double x1, double y1, double z1,
+        double x2, double y2, double z2,
+        int (&trinomialCoefficientCount) [NM_DIM_MAX + 1],
+        double (&diagonalFactors) [NM_DIM_MAX + 1],
+        double (&subdiagonalFactors) [NM_DIM_MAX + 1],
+        double (&vertical1Factors) [NM_DIM_MAX + 1] [NM_DIM_MAX + 1],
+        double (&vertical2Factors) [NM_DIM_MAX + 1] [NM_DIM_MAX + 1],
+        double (&mixingFactors) [NM_DIM_MAX + 1] [NM_DIM_MAX + 1] [NM_DIM_MAX + 1],
+        double density,
+        double polygon_mass,
+        double ref_radius
+        );
 
 
 
@@ -151,28 +153,28 @@ Accumulate contribution of one polyhedral element
 @param total_mass total mass of polyhedral shape
 @param normalized true if the normalized coefficients should be computed
 */
-void ComputePolyhedralCS(
-    arma::mat & Cnm2f,
-    arma::mat & Snm2f,
-    int n_degree, 
-    double ref_radius,
-    double polygon_mass, 
-    double density,
-    double total_mass,
-    double * r0,
-    double * r1,
-    double * r2,
-    bool normalized) ;
+    void ComputePolyhedralCS(
+        arma::mat & Cnm2f,
+        arma::mat & Snm2f,
+        int n_degree, 
+        double ref_radius,
+        double polygon_mass, 
+        double density,
+        double total_mass,
+        double * r0,
+        double * r1,
+        double * r2,
+        bool normalized) ;
 
 
 
-void GetBnmNormalizedExterior(int n_degree,
-    arma::mat & b_bar_real,
-    arma::mat & b_bar_imag,
-    const arma::vec & pos,
-    double ref_radius);
+    void GetBnmNormalizedExterior(int n_degree,
+        arma::mat & b_bar_real,
+        arma::mat & b_bar_imag,
+        const arma::vec & pos,
+        double ref_radius);
 
-
+}
 
 
 
