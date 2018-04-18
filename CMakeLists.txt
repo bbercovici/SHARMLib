@@ -122,11 +122,10 @@ target_link_libraries(${LIB_NAME} ${ARMADILLO_LIBRARIES})
 
 # If ${BREW} is true, installing from homebrew formula
 if(NOT BREW)
-
 	if (NOT ${IS_FORTUNA})
 		install (TARGETS ${LIB_NAME} DESTINATION /usr/local/lib/)
-		install (FILES ${PROJECT_SOURCE_DIR}/SHARMLibConfig.cmake DESTINATION /usr/local/lib/cmake/)
 		install (FILES ${PROJECT_SOURCE_DIR}/include/SHARMLib.hpp DESTINATION /usr/local/include/)
+		install (DIRECTORY ${PROJECT_SOURCE_DIR}/${LIB_NAME} DESTINATION /usr/local/share)
 	else()
 		install (TARGETS ${LIB_NAME} DESTINATION /home/bebe0705/libs/local/lib)
 		install (FILES ${PROJECT_SOURCE_DIR}/SHARMLibConfig.cmake DESTINATION /home/bebe0705/libs/local/lib/cmake/)
