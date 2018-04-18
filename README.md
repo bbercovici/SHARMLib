@@ -11,9 +11,11 @@ A library of functions computing the spherical harmonics expansion of the gravit
 
 SHARMLib can be retrieved from Homebrew:
 
-`brew tap bbercovici/sharmlib`
-`brew update`
-`brew install sharmlib`
+<pre>
+brew tap bbercovici/sharmlib
+brew update`
+brew install sharmlib
+</pre>
 
 ### Linux & Mac users
 
@@ -27,8 +29,10 @@ SHARMLib can be retrieved from Homebrew:
 
 Assuming that SHARMLib was installed with Homebrew
 
-`brew update`
-`brew upgrade sharmlib`
+<pre>
+brew update
+brew upgrade sharmlib
+</pre>
 
 ### Linux & Mac users
 
