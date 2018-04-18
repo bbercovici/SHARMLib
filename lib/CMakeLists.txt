@@ -37,7 +37,7 @@
 set (OMP_FRIENDLY_GCC_MAJOR_VERSION 7)
 
 # Path to OMP-Friendly GCC Compiler (will only be used on Mac OS systems)
-set (OMP_FRIENDLY_GCC_PATH /usr/local/Cellar/gcc/7.2.0/bin/)
+set (OMP_FRIENDLY_GCC_PATH /usr/local/Cellar/gcc/7.3.0_1/bin/)
 
 ################################################################################
 #
@@ -118,18 +118,17 @@ SHARED
 source/SHARMLib.cpp
 )
 
-
 target_link_libraries(${LIB_NAME} ${ARMADILLO_LIBRARIES})
 
 # Installing
 if (NOT ${IS_FORTUNA})
 	install (TARGETS ${LIB_NAME} DESTINATION /usr/local/lib/)
-	install (FILES ${PROJECT_SOURCE_DIR}/SHARMLibConfig.cmake DESTINATION /usr/local/lib/cmake/SHARMLib/)
-	install (DIRECTORY ${PROJECT_SOURCE_DIR}/include/ DESTINATION /usr/local/include/SHARMLib FILES_MATCHING PATTERN "*.hpp")
+	install (FILES ${PROJECT_SOURCE_DIR}/SHARMLibConfig.cmake DESTINATION /usr/local/lib/cmake/)
+	install (DIRECTORY ${PROJECT_SOURCE_DIR}/include/ DESTINATION /usr/local/include/ FILES_MATCHING PATTERN "*.hpp")
 else()
 	install (TARGETS ${LIB_NAME} DESTINATION /home/bebe0705/libs/local/lib)
-	install (FILES ${PROJECT_SOURCE_DIR}/SHARMLibConfig.cmake DESTINATION /home/bebe0705/libs/local/lib/cmake/SHARMLib/)
-	install (DIRECTORY ${PROJECT_SOURCE_DIR}/include/ DESTINATION /home/bebe0705/libs/local/include/SHARMLib FILES_MATCHING PATTERN "*.hpp")
+	install (FILES ${PROJECT_SOURCE_DIR}/SHARMLibConfig.cmake DESTINATION /home/bebe0705/libs/local/lib/cmake/)
+	install (DIRECTORY ${PROJECT_SOURCE_DIR}/include/ DESTINATION /home/bebe0705/libs/local/include/ FILES_MATCHING PATTERN "*.hpp")
 endif()
 
 

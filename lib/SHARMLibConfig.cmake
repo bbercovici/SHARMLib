@@ -30,11 +30,11 @@ endif()
 
 
 if(${IS_FORTUNA})
-	set(SHARMLIB_INCLUDE_HEADER /home/bebe0705/libs/local/include/SHARMLib/)
+	set(SHARMLIB_INCLUDE_HEADER /home/bebe0705/libs/local/include/)
 	set(SHARMLIB_LIBRARY /home/bebe0705/libs/local/lib/libSHARMLib.so)
 
 else()
-	set(SHARMLIB_INCLUDE_HEADER /usr/local/include/SHARMLib/)
+	set(SHARMLIB_INCLUDE_HEADER /usr/local/include/)
 
 	if (APPLE)
 		set(SHARMLIB_LIBRARY /usr/local/lib/libSHARMLib.dylib)
