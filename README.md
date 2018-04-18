@@ -13,7 +13,7 @@ SHARMLib can be retrieved from Homebrew:
 
 <pre>
 brew tap bbercovici/sharmlib
-brew update`
+brew update
 brew install sharmlib
 </pre>
 
