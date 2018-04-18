@@ -95,11 +95,6 @@ include_directories(include)
 find_package(Armadillo REQUIRED)
 include_directories(${ARMADILLO_INCLUDE_DIRS})
 
-
-# Find Armadillo 
-find_package(SHARMLib REQUIRED)
-include_directories(${SHARMLIB_INCLUDE_DIRS})
-
 # Find OpenMP
 find_package(OpenMP REQUIRED)
 if (OpenMP_FOUND)
@@ -115,7 +110,6 @@ add_library(${LIB_NAME}
 
 
 set(library_dependencies
-	${SHARMLIB_LIBRARY}
 	${ARMADILLO_LIBRARIES}
 	)
 
