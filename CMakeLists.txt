@@ -54,15 +54,16 @@ get_filename_component(dirName ${CMAKE_CURRENT_SOURCE_DIR} NAME)
 set(LIB_NAME SHARMLib)
 
 if(APPLE)
-	if(EXISTS ${OMP_FRIENDLY_GCC_PATH}) # Else running on a MAC. Will attempt to switch compiler to get the OMP-friendly GCC 6.3.0_1 from Homebrew
-	message("Switching to OMP-friendly GCC ")
-	set(CMAKE_C_COMPILER ${OMP_FRIENDLY_GCC_PATH}gcc-${OMP_FRIENDLY_GCC_MAJOR_VERSION} CACHE STRING "C Compiler" FORCE)
-	set(CMAKE_CXX_COMPILER ${OMP_FRIENDLY_GCC_PATH}g++-${OMP_FRIENDLY_GCC_MAJOR_VERSION} CACHE STRING "C++ Compiler" FORCE)
+	if(EXISTS ${OMP_FRIENDLY_GCC_PATH}) 
+		# Else running on a MAC. Will attempt to switch compiler to get the OMP-friendly GCC 6.3.0_1 from Homebrew
+		message("Switching to OMP-friendly GCC ")
+		set(CMAKE_C_COMPILER ${OMP_FRIENDLY_GCC_PATH}gcc-${OMP_FRIENDLY_GCC_MAJOR_VERSION} CACHE STRING "C Compiler" FORCE)
+		set(CMAKE_CXX_COMPILER ${OMP_FRIENDLY_GCC_PATH}g++-${OMP_FRIENDLY_GCC_MAJOR_VERSION} CACHE STRING "C++ Compiler" FORCE)
 
-else()
-	# no OMP-compliant compiler was found on this mac. 
-	message( "No OMP-compliant compiler was found on this Mac.")
-endif()
+	else()
+		# no OMP-compliant compiler was found on this mac. 
+		message( "No OMP-compliant compiler was found on this Mac.")
+	endif()
 else() 
 	# Running on Linux. Will switch back to compiler in /usr/local/bin
 	message("Switching to /usr/local/gcc ")
@@ -94,6 +95,11 @@ include_directories(include)
 find_package(Armadillo REQUIRED)
 include_directories(${ARMADILLO_INCLUDE_DIRS})
 
+
+# Find Armadillo 
+find_package(SHARMLib REQUIRED)
+include_directories(${SHARMLIB_INCLUDE_DIRS})
+
 # Find OpenMP
 find_package(OpenMP REQUIRED)
 if (OpenMP_FOUND)
@@ -107,7 +113,14 @@ add_library(${LIB_NAME}
 	source/SHARMLib.cpp
 	)
 
-target_link_libraries(${LIB_NAME} ${ARMADILLO_LIBRARIES})
+
+set(library_dependencies
+	${SHARMLIB_LIBRARY}
+	${ARMADILLO_LIBRARIES}
+	)
+
+
+target_link_libraries(${LIB_NAME} ${library_dependencies})
 
 # If ${BREW} is true, installing from homebrew formula
 if(NOT BREW)
