@@ -27,20 +27,6 @@
 
 ################################################################################
 #
-# 								User-defined paths
-#						Should be checked for consistency
-#						Before running 'cmake ..' in build dir
-#
-################################################################################
-
-# OMP-friendly GCC Major version (will only be used on Mac OS systems)
-set (OMP_FRIENDLY_GCC_MAJOR_VERSION 7)
-
-# Path to OMP-Friendly GCC Compiler (will only be used on Mac OS systems)
-set (OMP_FRIENDLY_GCC_PATH /usr/local/Cellar/gcc/7.3.0_1/bin/)
-
-################################################################################
-#
 #
 # 		The following should normally not require any modification
 # 				Unless new files are added to the build tree
@@ -53,23 +39,7 @@ set (OMP_FRIENDLY_GCC_PATH /usr/local/Cellar/gcc/7.3.0_1/bin/)
 get_filename_component(dirName ${CMAKE_CURRENT_SOURCE_DIR} NAME)
 set(LIB_NAME SHARMLib)
 
-if(APPLE)
-	if(EXISTS ${OMP_FRIENDLY_GCC_PATH}) 
-		# Else running on a MAC. Will attempt to switch compiler to get the OMP-friendly GCC 6.3.0_1 from Homebrew
-		message("Switching to OMP-friendly GCC ")
-		set(CMAKE_C_COMPILER ${OMP_FRIENDLY_GCC_PATH}gcc-${OMP_FRIENDLY_GCC_MAJOR_VERSION} CACHE STRING "C Compiler" FORCE)
-		set(CMAKE_CXX_COMPILER ${OMP_FRIENDLY_GCC_PATH}g++-${OMP_FRIENDLY_GCC_MAJOR_VERSION} CACHE STRING "C++ Compiler" FORCE)
-
-	else()
-		# no OMP-compliant compiler was found on this mac. 
-		message( "No OMP-compliant compiler was found on this Mac.")
-	endif()
-else() 
-	# Running on Linux. Will switch back to compiler in /usr/local/bin
-	message("Switching to /usr/local/gcc ")
-	set(CMAKE_C_COMPILER "/usr/local/bin/gcc" CACHE STRING "C Compiler" FORCE)
-	set(CMAKE_CXX_COMPILER "/usr/local/bin/g++" CACHE STRING "C++ Compiler" FORCE)
-endif()
+include(cmake/FindOmpGcc.cmake)
 
 project(${LIB_NAME})
 
