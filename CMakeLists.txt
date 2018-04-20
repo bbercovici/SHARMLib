@@ -35,11 +35,13 @@
 ################################################################################
 
 
-# Building procedure
+cmake_minimum_required(VERSION 2.8)
 get_filename_component(dirName ${CMAKE_CURRENT_SOURCE_DIR} NAME)
 set(LIB_NAME SHARMLib)
 
-include(cmake/FindOmpGcc.cmake)
+if (${USE_GCC})
+	include(cmake/FindOmpGcc.cmake)
+endif()
 
 project(${LIB_NAME})
 
