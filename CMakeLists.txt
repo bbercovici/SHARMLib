@@ -36,12 +36,17 @@
 
 
 cmake_minimum_required(VERSION 2.8)
-get_filename_component(dirName ${CMAKE_CURRENT_SOURCE_DIR} NAME)
-set(LIB_NAME SHARMLib)
 
 if (${USE_GCC})
 	include(cmake/FindOmpGcc.cmake)
+else()
+	set(CMAKE_C_COMPILER /usr/bin/gcc CACHE STRING "C Compiler" FORCE)
+	set(CMAKE_CXX_COMPILER /usr/bin/g++ CACHE STRING "C++ Compiler" FORCE)
 endif()
+
+get_filename_component(dirName ${CMAKE_CURRENT_SOURCE_DIR} NAME)
+set(LIB_NAME SHARMLib)
+
 
 project(${LIB_NAME})
 
