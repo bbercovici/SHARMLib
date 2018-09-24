@@ -34,17 +34,12 @@
 #
 ################################################################################
 
-cmake_minimum_required(VERSION 3.0)
+cmake_minimum_required(VERSION 3.5)
 
 get_filename_component(dirName ${CMAKE_CURRENT_SOURCE_DIR} NAME)
 set(LIB_NAME SHARMLib)
 
 project(${LIB_NAME})
-
-# Specify the version used
-if (${CMAKE_MAJOR_VERSION} LESS 3)
-	message(FATAL_ERROR " You are running an outdated version of CMake")
-endif()
 
 set(CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/source/cmake)
 
@@ -70,15 +65,10 @@ if (OpenMP_FOUND)
 endif()
 
 # Add source files in root directory
-add_library(${LIB_NAME} 
-	SHARED
-	source/SHARMLib.cpp
-	)
+add_library(${LIB_NAME} SHARED source/SHARMLib.cpp)
 
 
-set(library_dependencies
-	${ARMADILLO_LIBRARIES}
-	)
+set(library_dependencies ${ARMADILLO_LIBRARIES})
 
 
 if (UNIX AND APPLE)
