@@ -35,14 +35,7 @@
 ################################################################################
 
 
-cmake_minimum_required(VERSION 2.8)
-
-if (${USE_GCC})
-	include(cmake/FindOmpGcc.cmake)
-else()
-	set(CMAKE_C_COMPILER /usr/bin/gcc CACHE STRING "C Compiler" FORCE)
-	set(CMAKE_CXX_COMPILER /usr/bin/g++ CACHE STRING "C++ Compiler" FORCE)
-endif()
+cmake_minimum_required(VERSION 3.0)
 
 get_filename_component(dirName ${CMAKE_CURRENT_SOURCE_DIR} NAME)
 set(LIB_NAME SHARMLib)
@@ -91,7 +84,11 @@ set(library_dependencies
 	)
 
 
-target_link_libraries(${LIB_NAME} ${library_dependencies})
+if (UNIX AND APPLE)
+	target_link_libraries(${LIB_NAME} ${library_dependencies} OpenMP::OpenMP_CXX)
+else()
+	target_link_libraries(${LIB_NAME} ${library_dependencies})
+endif()
 
 # If ${BREW} is true, installing from homebrew formula
 if(NOT BREW)

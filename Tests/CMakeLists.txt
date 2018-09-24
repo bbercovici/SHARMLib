@@ -30,6 +30,8 @@
 #
 ################################################################################
 
+cmake_minimum_required(VERSION 3.0)
+
 # Building procedure
 get_filename_component(dirName ${CMAKE_CURRENT_SOURCE_DIR} NAME)
 set(EXE_NAME ${dirName} CACHE STRING "Name of executable to be created.")
