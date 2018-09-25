@@ -41,11 +41,6 @@ set(LIB_NAME SHARMLib)
 
 project(${LIB_NAME})
 
-# Specify the version used
-if (${CMAKE_MAJOR_VERSION} LESS 3)
-	message(FATAL_ERROR " You are running an outdated version of CMake")
-endif()
-
 set(CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/source/cmake)
 
 # Compiler flags
@@ -62,30 +57,11 @@ include_directories(include)
 find_package(Armadillo REQUIRED)
 include_directories(${ARMADILLO_INCLUDE_DIRS})
 
-# Find OpenMP
-find_package(OpenMP)
-if (OpenMP_FOUND)
-	set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} ${OpenMP_C_FLAGS}")
-	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${OpenMP_CXX_FLAGS}")
-endif()
-
 # Add source files in root directory
-add_library(${LIB_NAME} 
-	SHARED
-	source/SHARMLib.cpp
-	)
+add_library(${LIB_NAME} SHARED source/SHARMLib.cpp)
+set(library_dependencies ${ARMADILLO_LIBRARIES})
 
-
-set(library_dependencies
-	${ARMADILLO_LIBRARIES}
-	)
-
-
-if (UNIX AND APPLE)
-	target_link_libraries(${LIB_NAME} ${library_dependencies} OpenMP::OpenMP_CXX)
-else()
-	target_link_libraries(${LIB_NAME} ${library_dependencies})
-endif()
+target_link_libraries(${LIB_NAME} ${library_dependencies})
 
 # If ${BREW} is true, installing from homebrew formula
 if(NOT BREW)
