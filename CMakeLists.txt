@@ -45,6 +45,7 @@ set(CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/source/cmake)
 
 # Compiler flags
 add_definitions(-Wall -O2 )
+set(CMAKE_CXX_STANDARD 11)
 
 # Include directories
 include_directories(include)
