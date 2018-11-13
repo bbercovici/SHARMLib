@@ -640,7 +640,6 @@ namespace SHARMLib {
 		const arma::vec & pos,
 		double ref_radius){
 
-
 		double r_sat = arma::norm(pos);
 		double x_sat = pos(0);
 		double y_sat = pos(1);
