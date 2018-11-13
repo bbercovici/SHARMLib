@@ -30,9 +30,6 @@ namespace SHARMLib {
 		arma::mat & Snm2f,
 		int n_degree,
 		double ref_radius,
-		double polygon_mass,
-		double density,
-		double total_mass,
 		double * r0,
 		double * r1,
 		double * r2,                   
@@ -113,19 +110,10 @@ namespace SHARMLib {
 				vertical1Factors,
 				vertical2Factors,
 				mixingFactors,
-				density,
-				polygon_mass,
 				ref_radius);
 
 		} 
 	/* for s */
-
-	// /** print the results **/
-
-	// /*// 	printf ("\nPotential coefficients of polyhedron\n"); */
-	// /*// 	printf ("total mass %g, reference distance %g, polyhedron density %g\n", */
-	// /*// 		polygon_mass, ref_radius, density); */
-	// /*//PrintCoefficients (Cnm, Snm); */
 
 
 		Cnm2f = arma::zeros<arma::mat>(n_degree + 1, n_degree + 1);
@@ -161,8 +149,6 @@ namespace SHARMLib {
 		double (&vertical1Factors) [NM_DIM_MAX + 1] [NM_DIM_MAX + 1],
 		double (&vertical2Factors) [NM_DIM_MAX + 1] [NM_DIM_MAX + 1],
 		double (&mixingFactors) [NM_DIM_MAX + 1] [NM_DIM_MAX + 1] [NM_DIM_MAX + 1],
-		double density,
-		double polygon_mass,
 		double ref_radius
 		) {
 
@@ -182,13 +168,12 @@ namespace SHARMLib {
 
 	/* calculate Jacobian determinant *before* normalizing the coordinates */
 
-		const double det = x0 * (y1 * z2 - y2 * z1) + x1 * (y2 * z0 - z2 * y0) + x2 * (y0 * z1 - y1 * z0);
+		// const double det = x0 * (y1 * z2 - y2 * z1) + x1 * (y2 * z0 - z2 * y0) + x2 * (y0 * z1 - y1 * z0);
 
 	/* prepare dimensionless overall scale factor for this simplex */
 
-		const double overallFactor = density * det / polygon_mass;
-
-
+		// const double overallFactor = density * det / polygon_mass;
+		const double overallFactor = 6;
 
 
 	if (overallFactor == 0.0) return; /* nothing to do */

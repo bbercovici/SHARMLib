@@ -114,8 +114,6 @@ Accumulate contribution of one simplex to potential coefficients Cnm and Snm.
 @param vertical1Factors
 @param vertical2Factors
 @param mixingFactors
-@param density density of polyhedron
-@param polygon_mass mass of supporting tetrahedron 
 @param ref_radius reference radius in the expansion
 */
     void AccumulateOneSimplex (
@@ -131,8 +129,6 @@ Accumulate contribution of one simplex to potential coefficients Cnm and Snm.
         double (&vertical1Factors) [NM_DIM_MAX + 1] [NM_DIM_MAX + 1],
         double (&vertical2Factors) [NM_DIM_MAX + 1] [NM_DIM_MAX + 1],
         double (&mixingFactors) [NM_DIM_MAX + 1] [NM_DIM_MAX + 1] [NM_DIM_MAX + 1],
-        double density,
-        double polygon_mass,
         double ref_radius
         );
 
@@ -145,12 +141,9 @@ Accumulate contribution of one polyhedral element
 @param Snm2f contribution to the total Snm for this element 
 @param n_degree degree of the expansion to build
 @param ref_radius reference radius in the expansion
-@param polygon_mass mass of supporting tetrahedron 
-@param density density of polyhedron
 @param r0 pointer to coordinates of first vertex
 @param r1 pointer to coordinates of second vertex
 @param r2 pointer to coordinates of third vertex
-@param total_mass total mass of polyhedral shape
 @param normalized true if the normalized coefficients should be computed
 */
     void ComputePolyhedralCS(
@@ -158,9 +151,6 @@ Accumulate contribution of one polyhedral element
         arma::mat & Snm2f,
         int n_degree, 
         double ref_radius,
-        double polygon_mass, 
-        double density,
-        double total_mass,
         double * r0,
         double * r1,
         double * r2,
