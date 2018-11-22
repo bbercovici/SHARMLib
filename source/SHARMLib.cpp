@@ -35,6 +35,8 @@ namespace SHARMLib {
 		double * r2,                   
 		bool normalized) {
 
+
+
 	/* result accumulators */
 		double Cnm [NM_DIM_MAX + 1] [NM_DIM_MAX + 1], Snm [NM_DIM_MAX + 1] [NM_DIM_MAX + 1];
 	double	mixingFactors [NM_DIM_MAX + 1] [NM_DIM_MAX + 1] [NM_DIM_MAX + 1]; /* (i!) (j!) (k!) / (n+3)! */
@@ -115,16 +117,12 @@ namespace SHARMLib {
 		} 
 	/* for s */
 
-
-		Cnm2f = arma::zeros<arma::mat>(n_degree + 1, n_degree + 1);
-		Snm2f = arma::zeros<arma::mat>(n_degree + 1, n_degree + 1);
-
 		for (int m = 0; m < n_degree + 1; ++m) {
 
 			for (int n = m; n < n_degree + 1; ++n) {
 
-				Cnm2f.row(n)(m) = Cnm [n][m];
-				Snm2f.row(n)(m) = Snm [n][m];
+				Cnm2f(n,m) = Cnm [n][m];
+				Snm2f(n,m) = Snm [n][m];
 
 			} 
 		/*// For n */
@@ -641,7 +639,6 @@ namespace SHARMLib {
 		arma::mat & b_bar_imag,
 		const arma::vec & pos,
 		double ref_radius){
-
 
 		double r_sat = arma::norm(pos);
 		double x_sat = pos(0);
