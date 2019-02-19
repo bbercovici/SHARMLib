@@ -166,16 +166,10 @@ namespace SHARMLib {
 
 	/* calculate Jacobian determinant *before* normalizing the coordinates */
 
-		// const double det = x0 * (y1 * z2 - y2 * z1) + x1 * (y2 * z0 - z2 * y0) + x2 * (y0 * z1 - y1 * z0);
+		const double overallFactor = x0 * (y1 * z2 - y2 * z1) + x1 * (y2 * z0 - z2 * y0) + x2 * (y0 * z1 - y1 * z0);
 
-	/* prepare dimensionless overall scale factor for this simplex */
-
-		// const double overallFactor = density * det / polygon_mass;
-		const double overallFactor = 6;
-
-
-	if (overallFactor == 0.0) return; /* nothing to do */
-
+		if (overallFactor == 0.0) return; /* nothing to do */
+		
 	/* normalize coordinates */
 
 		x0 /= ref_radius; y0 /= ref_radius; z0 /= ref_radius;
@@ -213,7 +207,6 @@ namespace SHARMLib {
 	/** 
 	order m 
 	**/
-
 			for ( int n = m; n <= n_degree; ++n) {	
 		/** degree n **/
 
