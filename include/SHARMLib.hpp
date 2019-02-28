@@ -156,8 +156,6 @@ Accumulate contribution of one polyhedral element
         double * r2,
         bool normalized) ;
 
-
-
     void GetBnmNormalizedExterior(int n_degree,
         arma::mat & b_bar_real,
         arma::mat & b_bar_imag,
